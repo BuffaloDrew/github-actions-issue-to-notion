@@ -1,0 +1,20 @@
+name: 'Sync GitHub Issues to Notion'
+description: 'Sync GitHub issues and comments to Notion'
+author: 'buffalodrew'
+branding:
+  icon: 'refresh-cw'
+  color: 'blue'
+outputs:
+  id:
+    description: 'id of notion page if it was created'
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - run: cd ${{ github.action_path }} && npm install
+      shell: bash
+    - run: node ${{ github.action_path }}/index.js
+      shell: bash
